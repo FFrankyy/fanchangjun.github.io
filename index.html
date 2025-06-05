@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张明教授 - 计算机科学与技术</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --header-bg: #24292e;
+            --accent-color: #0366d6;
+            --light-accent: #f6f8fa;
+            --border-color: #e1e4e8;
+            --text-color: #24292e;
+            --light-text: #6a737d;
+            --card-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+            max-width: 1012px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        /* ===== 导航和头部 ===== */
+        header {
+            background-color: var(--header-bg);
+            padding: 16px 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1012px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        
+        .logo i {
+            font-size: 24px;
+        }
+        
+        .lang-switcher {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .lang-btn.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-weight: 500;
+        }
+        
+        /* ===== 个人资料部分 ===== */
+        .profile-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-info h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .profile-title {
+            color: var(--light-text);
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 15px;
+            color: var(--light-text);
+        }
+        
+        .contact-item i {
+            color: var(--accent-color);
+        }
+        
+        .contact-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== 学术统计卡片 ===== */
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0 30px;
+        }
+        
+        .stat-box {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: white;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--light-text);
+            margin-top: 4px;
+        }
+        
+        /* ===== 内容区块通用样式 ===== */
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: white;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .section-title {
+            font-size: 22px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title i {
+            color: var(--accent-color);
+        }
+        
+        /* ===== 出版物样式 ===== */
+        .publication-item {
+            margin-bottom: 20px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: white;
+            transition: all 0.2s;
+        }
+        
+        .publication-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: #d1d5da;
+        }
+        
+        .pub-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .pub-authors {
+            color: var(--light-text);
+            font-size: 15px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .pub-venue {
+            color: var(--accent-color);
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .pub-links {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .pub-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .pub-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== 教学列表样式 ===== */
+        .teaching-list {
+            list-style: none;
+        }
+        
+        .teaching-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .teaching-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .course-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .course-info {
+            color: var(--light-text);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        /* ===== 服务网格样式 ===== */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .service-card {
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: white;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .service-card h3 {
+            margin-bottom: 12px;
+            color: var(--text-color);
+            font-size: 18px;
+        }
+        
+        .service-list {
+            list-style: none;
+        }
+        
+        .service-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .service-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        /* ===== 页脚样式 ===== */
+        footer {
+            padding: 30px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--light-text);
+            font-size: 14px;
+        }
+        
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        
+        .github-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== 更新通知 ===== */
+        .update-notice {
+            background-color: #e6f7ff;
+            border-left: 4px solid #1890ff;
+            padding: 12px 16px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .update-notice h4 {
+            margin-bottom: 8px;
+            color: #1890ff;
+        }
+        
+        /* ===== 响应式设计 ===== */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .contact-info {
+                justify-content: center;
+            }
+            
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .lang-switcher {
+                align-self: flex-end;
+            }
+            
+            .stat-box {
+                min-width: calc(50% - 15px);
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stat-box {
+                min-width: 100%;
+            }
+            
+            .pub-links {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fab fa-github"></i>
+                <span>ZhangLab @ Tsinghua</span>
+            </a>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="zh">中文</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="profile-section">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&h=400" alt="张明教授" class="profile-img">
+            <div class="profile-info">
+                <h1 data-i18n="name">张明</h1>
+                <div class="profile-title" data-i18n="title">教授 · 博士生导师 · 清华大学计算机科学与技术系</div>
+                <p data-i18n="bio">专注于机器学习、计算机视觉和自然语言处理的研究。致力于将人工智能技术应用于医疗健康、教育创新和可持续发展领域。</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span data-i18n="email">ming.zhang@tsinghua.edu.cn</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-i18n="office">信息科学技术楼 801室</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span data-i18n="phone">+86 10 12345678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-google"></i>
+                        <a href="https://scholar.google.com/citations?hl=zh-CN&user=z0Keb0sAAAAJ" target="_blank" data-i18n="scholar">Google Scholar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">85+</div>
+                <div class="stat-label" data-i18n="pubs">发表论文</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4,200+</div>
+                <div class="stat-label" data-i18n="citations">引用次数</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">12</div>
+                <div class="stat-label" data-i18n="students">指导博士生</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">15+</div>
+                <div class="stat-label" data-i18n="projects">研究项目</div>
+            </div>
+        </div>
+        
+        <!-- 更新通知区域 -->
+        <div class="update-notice">
+            <h4 data-i18n="update_title">最新更新</h4>
+            <p data-i18n="update_text">2023年10月：新增2篇被NeurIPS 2023接收的论文，更新了秋季课程信息。</p>
+        </div>
+        
+        <!-- 出版物部分 -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-book"></i> <span data-i18n="publications">发表论文</span></h2>
+            
+            <div class="publication-item">
+                <div class="pub-title">基于深度多任务学习的医学影像分割方法</div>
+                <div class="pub-authors">张明, 李华, 王强</div>
+                <span class="pub-venue">IEEE Transactions on Medical Imaging, 42(3), 2023</span>
+                <div class="pub-links">
+                    <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> <span data-i18n="pdf">PDF</span></a>
+                    <a href="#" class="pub-link"><i class="fas fa-code"></i> <span data-i18n="code">代码</span></a>
+                    <a href="#" class="pub-link"><i class="fas fa-database"></i> <span data-i18n="data">数据集</span></a>
+                </div>
+            </div>
+            
+            <!-- 新论文示例 -->
+            <div class="publication-item">
+                <div class="pub-title">多模态学习在医疗诊断中的应用</div>
+                <div class="pub-authors">张明, 陈晓, 刘芳</div>
+                <span class="pub-venue">NeurIPS 2023</span>
+                <div class="pub-links">
+                    <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> <span data-i18n="pdf">PDF</span></a>
+                    <a href="#" class="pub-link"><i class="fas fa-code"></i> <span data-i18n="code">代码</span></a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="pub-title">鲁棒视频行为识别的时空注意力机制</div>
+                <div class="pub-authors">张明, 刘芳, 杨光</div>
+                <span class="pub-venue">CVPR, 2021</span>
+                <div class="pub-links">
+                    <a href="#" class="pub-link"><i class="fas fa-file-pdf"></i> <span data-i18n="pdf">PDF</span></a>
+                    <a href="#" class="pub-link"><i class="fas fa-code"></i> <span data-i18n="code">代码</span></a>
+                    <a href="#" class="pub-link"><i class="fas fa-video"></i> <span data-i18n="video">视频</span></a>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <a href="https://scholar.google.com/citations?hl=zh-CN&user=z0Keb0sAAAAJ" target="_blank" class="pub-link">
+                    <i class="fas fa-external-link-alt"></i> <span data-i18n="all_pubs">查看完整出版物列表</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- 教学部分 -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> <span data-i18n="teaching">教学</span></h2>
+            
+            <ul class="teaching-list">
+                <li>
+                    <div class="course-title" data-i18n="course1">机器学习导论</div>
+                    <div class="course-info">
+                        <span data-i18n="undergrad">本科生课程</span> | 
+                        <span data-i18n="fall">秋季学期</span> | 
+                        <span data-i18n="course_code">课程代码: CS301</span>
+                    </div>
+                    <p data-i18n="course1_desc">涵盖监督学习、无监督学习、深度学习基础及实践应用。</p>
+                </li>
+                
+                <!-- 新课程示例 -->
+                <li>
+                    <div class="course-title" data-i18n="course4">人工智能伦理与社会影响</div>
+                    <div class="course-info">
+                        <span data-i18n="grad">研究生课程</span> | 
+                        <span data-i18n="spring">春季学期</span> | 
+                        <span data-i18n="course_code">课程代码: CS702</span>
+                    </div>
+                    <p data-i18n="course4_desc">探讨人工智能技术发展带来的伦理问题和社会影响。</p>
+                </li>
+                
+                <li>
+                    <div class="course-title" data-i18n="course2">高级计算机视觉</div>
+                    <div class="course-info">
+                        <span data-i18n="grad">研究生课程</span> | 
+                        <span data-i18n="spring">春季学期</span> | 
+                        <span data-i18n="course_code">课程代码: CS605</span>
+                    </div>
+                    <p data-i18n="course2_desc">深入探讨计算机视觉前沿技术，包括3D视觉、视频分析和生成模型。</p>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 学术服务部分 -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-users"></i> <span data-i18n="services">学术服务</span></h2>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3 data-i18n="conference_services">会议组织</h3>
+                    <ul class="service-list">
+                        <li data-i18n="service1">国际机器学习大会(ICML) 领域主席 (2021-2023)</li>
+                        <li data-i18n="service2">计算机视觉与模式识别会议(CVPR) 高级程序委员 (2020-2023)</li>
+                        <li data-i18n="service3">亚洲计算机视觉会议(ACCV) 程序委员会主席 (2022)</li>
+                        <li data-i18n="service4">全国人工智能大会程序委员会共同主席 (2023)</li>
+                        
+                        <!-- 新服务示例 -->
+                        <li data-i18n="service5">人工智能促进协会(AAAI) 高级程序委员 (2024)</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <h3 data-i18n="journal_services">期刊审稿</h3>
+                    <ul class="service-list">
+                        <li>IEEE TPAMI</li>
+                        <li>IJCV</li>
+                        <li>NeurIPS</li>
+                        <li>ICLR</li>
+                        <li>AAAI</li>
+                        <li>ACL</li>
+                        <li>EMNLP</li>
+                        <li>MICCAI</li>
+                        
+                        <!-- 新期刊示例 -->
+                        <li>Nature Machine Intelligence</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <h3 data-i18n="academic_roles">学术任职</h3>
+                    <ul class="service-list">
+                        <li data-i18n="role1">中国人工智能学会常务理事</li>
+                        <li data-i18n="role2">IEEE高级会员</li>
+                        <li data-i18n="role3">ACM杰出会员</li>
+                        <li data-i18n="role4">《人工智能学报》副主编</li>
+                        
+                        <!-- 新任职示例 -->
+                        <li data-i18n="role5">《IEEE智能系统》编委 (2023-至今)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新增研究项目部分 -->
+        <div class="section">
+            <h2 class="section-title"><i class="fas fa-flask"></i> <span data-i18n="research">研究项目</span></h2>
+            
+            <div class="service-card">
+                <h3>跨模态医疗影像分析</h3>
+                <p data-i18n="project1_desc">国家自然科学基金重点项目，研究多模态医学影像的联合分析与诊断方法，提高早期疾病检测准确率。</p>
+                <div class="course-info">
+                    <span data-i18n="duration">项目周期</span>: 2021-2024 | 
+                    <span data-i18n="funding">资助机构</span>: 国家自然科学基金委
+                </div>
+            </div>
+            
+            <div class="service-card" style="margin-top: 15px;">
+                <h3>自适应教育人工智能</h3>
+                <p data-i18n="project2_desc">教育部-微软联合研究计划，开发个性化学习系统，根据学生认知特点动态调整教学策略与内容。</p>
+                <div class="course-info">
+                    <span data-i18n="duration">项目周期</span>: 2022-2025 | 
+                    <span data-i18n="funding">资助机构</span>: 教育部-微软联合研究基金
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p data-i18n="copyright">© 2023 张明教授 - 清华大学计算机科学与技术系</p>
+        <p data-i18n="last_updated">最后更新: 2023年10月15日</p>
+        <a href="https://github.com/prof-zhang-website" class="github-link">
+            <i class="fab fa-github"></i> 
+            <span data-i18n="view_source">在GitHub上查看此网站源代码</span>
+        </a>
+    </footer>
+
+    <script>
+        // 国际化语言资源
+        const resources = {
+            zh: {
+                "name": "张明",
+                "title": "教授 · 博士生导师 · 清华大学计算机科学与技术系",
+                "bio": "专注于机器学习、计算机视觉和自然语言处理的研究。致力于将人工智能技术应用于医疗健康、教育创新和可持续发展领域。",
+                "email": "ming.zhang@tsinghua.edu.cn",
+                "office": "信息科学技术楼 801室",
+                "phone": "+86 10 12345678",
+                "scholar": "Google Scholar",
+                "pubs": "发表论文",
+                "citations": "引用次数",
+                "students": "指导博士生",
+                "projects": "研究项目",
+                "publications": "发表论文",
+                "pdf": "PDF",
+                "code": "代码",
+                "data": "数据集",
+                "video": "视频",
+                "all_pubs": "查看完整出版物列表",
+                "teaching": "教学",
+                "course1": "机器学习导论",
+                "undergrad": "本科生课程",
+                "fall": "秋季学期",
+                "course_code": "课程代码",
+                "course1_desc": "涵盖监督学习、无监督学习、深度学习基础及实践应用。",
+                "course2": "高级计算机视觉",
+                "grad": "研究生课程",
+                "spring": "春季学期",
+                "course2_desc": "深入探讨计算机视觉前沿技术，包括3D视觉、视频分析和生成模型。",
+                "course4": "人工智能伦理与社会影响",
+                "course4_desc": "探讨人工智能技术发展带来的伦理问题和社会影响。",
+                "services": "学术服务",
+                "conference_services": "会议组织",
+                "service1": "国际机器学习大会(ICML) 领域主席 (2021-2023)",
+                "service2": "计算机视觉与模式识别会议(CVPR) 高级程序委员 (2020-2023)",
+                "service3": "亚洲计算机视觉会议(ACCV) 程序委员会主席 (2022)",
+                "service4": "全国人工智能大会程序委员会共同主席 (2023)",
+                "service5": "人工智能促进协会(AAAI) 高级程序委员 (2024)",
+                "journal_services": "期刊审稿",
+                "academic_roles": "学术任职",
+                "role1": "中国人工智能学会常务理事",
+                "role2": "IEEE高级会员",
+                "role3": "ACM杰出会员",
+                "role4": "《人工智能学报》副主编",
+                "role5": "《IEEE智能系统》编委 (2023-至今)",
+                "research": "研究项目",
+                "project1_desc": "国家自然科学基金重点项目，研究多模态医学影像的联合分析与诊断方法，提高早期疾病检测准确率。",
+                "project2_desc": "教育部-微软联合研究计划，开发个性化学习系统，根据学生认知特点动态调整教学策略与内容。",
+                "duration": "项目周期",
+                "funding": "资助机构",
+                "copyright": "© 2023 张明教授 - 清华大学计算机科学与技术系",
+                "last_updated": "最后更新: 2023年10月15日",
+                "view_source": "在GitHub上查看此网站源代码",
+                "update_title": "最新更新",
+                "update_text": "2023年10月：新增2篇被NeurIPS 2023接收的论文，更新了秋季课程信息。"
+            },
+            en: {
+                "name": "Ming Zhang",
+                "title": "Professor · PhD Advisor · Tsinghua University",
+                "bio": "Specializing in machine learning, computer vision, and natural language processing. Committed to applying AI technologies to healthcare, education innovation, and sustainable development.",
+                "email": "ming.zhang@tsinghua.edu.cn",
+                "office": "Information Science Building, Room 801",
+                "phone": "+86 10 12345678",
+                "scholar": "Google Scholar",
+                "pubs": "Publications",
+                "citations": "Citations",
+                "students": "PhD Students",
+                "projects": "Research Projects",
+                "publications": "Publications",
+                "pdf": "PDF",
+                "code": "Code",
+                "data": "Dataset",
+                "video": "Video",
+                "all_pubs": "View Full Publications",
+                "teaching": "Teaching",
+                "course1": "Introduction to Machine Learning",
+                "undergrad": "Undergraduate",
+                "fall": "Fall Semester",
+                "course_code": "Course Code",
+                "course1_desc": "Covers supervised learning, unsupervised learning, deep learning fundamentals and practical applications.",
+                "course2": "Advanced Computer Vision",
+                "grad": "Graduate",
+                "spring": "Spring Semester",
+                "course2_desc": "In-depth exploration of cutting-edge computer vision techniques, including 3D vision, video analysis, and generative models.",
+                "course4": "AI Ethics and Social Impact",
+                "course4_desc": "Examines ethical issues and social impacts arising from the development of AI technologies.",
+                "services": "Professional Services",
+                "conference_services": "Conference Organization",
+                "service1": "Area Chair, ICML (2021-2023)",
+                "service2": "Senior Program Committee, CVPR (2020-2023)",
+                "service3": "Program Chair, ACCV (2022)",
+                "service4": "Co-Chair, National Conference on AI (2023)",
+                "service5": "Senior Program Committee, AAAI (2024)",
+                "journal_services": "Journal Reviewing",
+                "academic_roles": "Academic Roles",
+                "role1": "Executive Council Member, CAAI",
+                "role2": "Senior Member, IEEE",
+                "role3": "Distinguished Member, ACM",
+                "role4": "Associate Editor, Journal of Artificial Intelligence",
+                "role5": "Editorial Board, IEEE Intelligent Systems (2023-Present)",
+                "research": "Research Projects",
+                "project1_desc": "NSFC Key Project focusing on multimodal medical image analysis for improved early disease detection.",
+                "project2_desc": "Ministry of Education-Microsoft Joint Research Initiative on developing adaptive AI education systems.",
+                "duration": "Duration",
+                "funding": "Funding Agency",
+                "copyright": "© 2023 Prof. Ming Zhang - Tsinghua University",
+                "last_updated": "Last Updated: October 15, 2023",
+                "view_source": "View Source on GitHub",
+                "update_title": "Recent Updates",
+                "update_text": "October 2023: Added 2 papers accepted to NeurIPS 2023, updated fall course information."
+            }
+        };
+
+        // 语言切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始语言设置
+            let currentLang = 'zh';
+            const langButtons = document.querySelectorAll('.lang-btn');
+            
+            // 应用语言设置
+            function applyLanguage(lang) {
+                // 更新按钮状态
+                langButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+                
+                // 更新页面内容
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (resources[lang][key]) {
+                        element.textContent = resources[lang][key];
+                    }
+                });
+                
+                // 更新页面语言属性
+                document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+                
+                // 保存语言选择
+                localStorage.setItem('preferredLanguage', lang);
+            }
+            
+            // 按钮点击事件
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    currentLang = this.dataset.lang;
+                    applyLanguage(currentLang);
+                });
+            });
+            
+            // 检查保存的语言偏好
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang) {
+                applyLanguage(savedLang);
+            } else {
+                // 默认根据浏览器语言设置
+                const browserLang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+                applyLanguage(browserLang);
+            }
+        });
+    </script>
+</body>
+</html>
